@@ -12,12 +12,12 @@ export class ChallengeUserService {
         private userModel: Model<UserDocument>
     ) { }
 
-    async registerUser(username: string): Promise<User> {
-        const existingUser = await this.userModel.findOne({ username }).lean();
+    async registerUser(username: string, score: number): Promise<User> {
+        const existingUser = await this.userModel.findOneAndUpdate({ username }, { $set : { score }}).lean();
         if (existingUser) {
             return existingUser;
         }
-        return this.userModel.create({ username });
+        return this.userModel.create({ username, score });
     }
 
     async generateChallenge(username: string): Promise<{ shareUrl: string; imageUrl: string }> {
