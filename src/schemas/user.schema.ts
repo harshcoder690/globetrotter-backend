@@ -9,7 +9,7 @@ export class User {
   @Prop({ default: 0 })
   score: number;
 
-  @Prop({ unique: true })
+  @Prop()
   challengeId: string;
 
   @Prop()
